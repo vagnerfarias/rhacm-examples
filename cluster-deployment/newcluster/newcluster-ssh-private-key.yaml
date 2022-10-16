@@ -1,0 +1,8 @@
+apiVersion: v1
+data:
+  ssh-privatekey: REDACTED
+kind: Secret
+metadata:
+  name: newcluster-ssh-private-key
+  namespace: newcluster
+type: Opaque

@@ -1,0 +1,9 @@
+apiVersion: v1
+data:
+  aws_access_key_id: REDACTED
+  aws_secret_access_key: REDACTED
+kind: Secret
+metadata:
+  name: newcluster-aws-creds
+  namespace: newcluster
+type: Opaque

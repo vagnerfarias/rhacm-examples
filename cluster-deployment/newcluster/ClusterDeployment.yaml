@@ -1,0 +1,44 @@
+apiVersion: hive.openshift.io/v1
+kind: ClusterDeployment
+metadata:
+  labels:
+    cloud: AWS
+    cluster.open-cluster-management.io/clusterset: default
+    hive.openshift.io/cluster-platform: aws
+    hive.openshift.io/cluster-region: us-east-1
+    hive.openshift.io/version-major: "4"
+    hive.openshift.io/version-major-minor: "4.11"
+    hive.openshift.io/version-major-minor-patch: 4.11.8
+    region: us-east-1
+    vendor: OpenShift
+  name: newcluster
+  namespace: newcluster
+spec:
+  baseDomain: sandbox68.opentlc.com
+  clusterMetadata:
+    adminKubeconfigSecretRef:
+      name: newcluster-0-pq6gg-admin-kubeconfig
+    adminPasswordSecretRef:
+      name: newcluster-0-pq6gg-admin-password
+    clusterID: cf84ed88-f7b9-47cf-81c5-39b8d17fba36
+    infraID: newcluster-6fb5f
+  clusterName: newcluster
+  controlPlaneConfig:
+    servingCertificates: {}
+  installAttemptsLimit: 1
+  installed: true
+  platform:
+    aws:
+      credentialsSecretRef:
+        name: newcluster-aws-creds
+      region: us-east-1
+  provisioning:
+    imageSetRef:
+      name: img4.11.8-x86-64-appsub
+    installConfigSecretRef:
+      name: newcluster-install-config
+    sshPrivateKeySecretRef:
+      name: newcluster-ssh-private-key
+  pullSecretRef:
+    name: newcluster-pull-secret
+
