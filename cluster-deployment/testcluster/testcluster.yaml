@@ -1,0 +1,123 @@
+apiVersion: hive.openshift.io/v1
+kind: ClusterDeployment
+metadata:
+  name: testcluster
+  namespace: testcluster
+  labels:
+    cloud: Amazon
+    region: us-east-1
+    vendor: OpenShift
+spec:
+  baseDomain: sandbox68.opentlc.com
+  clusterName: testcluster
+  controlPlaneConfig:
+    servingCertificates: {}
+  installed: false
+  platform:
+    aws:
+      credentialsSecretRef:
+        name: testcluster-aws-creds
+      region: us-east-1
+  provisioning:
+    imageSetRef:
+      name: img4.11.8-x86-64-appsub
+    installConfigSecretRef:
+      name: testcluster-install-config
+    sshPrivateKeySecretRef:
+      name: testcluster-ssh-key
+  pullSecretRef:
+    name: testcluster-pull-secret
+
+---
+apiVersion: cluster.open-cluster-management.io/v1
+kind: ManagedCluster
+metadata:
+  labels:
+    cloud: Amazon
+    region: us-east-1
+    name: 'testcluster'
+    vendor: OpenShift
+  name: 'testcluster'
+spec:
+  hubAcceptsClient: true
+
+---
+apiVersion: hive.openshift.io/v1
+kind: MachinePool
+metadata:
+  name: testcluster-worker
+  namespace: 'testcluster'
+spec:
+  clusterDeploymentRef:
+    name: 'testcluster'
+  name: worker
+  platform:
+    aws:
+      rootVolume:
+        iops: 2000
+        size: 100
+        type: io1
+      type: m5.xlarge
+  replicas: 3
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: testcluster-pull-secret
+  namespace: testcluster
+data:
+  .dockerconfigjson: REDACTED
+type: kubernetes.io/dockerconfigjson
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: testcluster-install-config
+  namespace: testcluster
+type: Opaque
+data:
+  install-config.yaml: REDACTED
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: testcluster-ssh-key
+  namespace: testcluster
+type: Opaque
+data:
+  ssh-privatekey: REDACTED
+---
+apiVersion: v1
+data:
+  aws_access_key_id: REDACTED
+  aws_secret_access_key: REDACTED
+kind: Secret
+metadata:
+  name: testcluster-aws-creds
+  namespace: testcluster
+type: Opaque
+---
+apiVersion: agent.open-cluster-management.io/v1
+kind: KlusterletAddonConfig
+metadata:
+  name: 'testcluster'
+  namespace: 'testcluster'
+spec:
+  clusterName: 'testcluster'
+  clusterNamespace: 'testcluster'
+  clusterLabels:
+    cloud: Amazon
+    vendor: OpenShift
+  applicationManager:
+    enabled: true
+  policyController:
+    enabled: true
+  searchCollector:
+    enabled: true
+  certPolicyController:
+    enabled: true
+  iamPolicyController:
+    enabled: true
+
