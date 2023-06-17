@@ -1,0 +1,22 @@
+# Adopt clusters (Not currently supported in RHACM)
+apiVersion: hive.openshift.io/v1
+kind: ClusterDeployment
+metadata:
+  name: ocp2
+  namespace: ocp2
+spec:
+  baseDomain: sandbox69.opentlc.com
+  clusterMetadata:
+    adminKubeconfigSecretRef:
+      name: ocp2-admin-kubeconfig
+    clusterID: 7338b0fc-74a5-464e-a969-99a9f67bf46e
+    infraID: ocp2-2xrpm
+  clusterName: ocp2
+  installed: true
+  platform:
+    aws:
+      credentialsSecretRef:
+        name: ocp2-aws-creds
+      region: us-west-2
+  pullSecretRef:
+    name: pull-secret

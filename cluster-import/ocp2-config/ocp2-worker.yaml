@@ -1,0 +1,18 @@
+# Can only be used on clusters created by RHACM or in clusters adopted (feature not supported downstream)
+apiVersion: hive.openshift.io/v1
+kind: MachinePool
+metadata:
+  name: ocp2-worker
+  namespace: ocp2
+spec:
+  clusterDeploymentRef:
+    name: ocp2
+  name: worker
+  platform:
+    aws:
+      rootVolume:
+        iops: 2000
+        size: 100
+        type: io1
+      type: m5.2xlarge
+  replicas: 0

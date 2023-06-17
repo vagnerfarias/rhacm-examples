@@ -1,0 +1,91 @@
+# Need to edit ssh private key, aws creds and pull secret
+apiVersion: hive.openshift.io/v1
+kind: ClusterDeployment
+metadata:
+  name: ocp1
+  namespace: ocp1
+spec:
+  installed: false
+  baseDomain: sandbox526.opentlc.com
+  clusterName: ocp1
+  platform:
+    aws:
+      credentialsSecretRef:
+        name: ocp1-aws-creds
+      region: us-east-1
+  pullSecretRef:
+    name: pull-secret
+  provisioning:
+    imageSetRef:
+      name: img4.12.18-x86-64-appsub
+    installConfigSecretRef:
+      name: ocp1-install-config
+    sshPrivateKeySecretRef:
+      name: ocp1-ssh-private-key
+  pullSecretRef:
+    name: ocp1-pull-secret
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ocp1-ssh-private-key
+  namespace: 'ocp1'
+stringData:
+  ssh-privatekey: |
+    -----BEGIN OPENSSH PRIVATE KEY-----
+    -----END OPENSSH PRIVATE KEY-----
+type: Opaque
+---
+apiVersion: v1
+kind: Secret
+type: Opaque
+metadata:
+  name: ocp1-aws-creds
+  namespace: 'ocp1'
+stringData:
+  aws_access_key_id: REDACTED
+  aws_secret_access_key: REDACTED
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ocp1-pull-secret
+  namespace: 'ocp1'
+stringData:
+  .dockerconfigjson: >
+    {"auths":...
+type: kubernetes.io/dockerconfigjson
+---
+apiVersion: agent.open-cluster-management.io/v1
+kind: KlusterletAddonConfig
+metadata:
+  name: 'ocp1'
+  namespace: 'ocp1'
+spec:
+  clusterName: 'ocp1'
+  clusterNamespace: 'ocp1'
+  clusterLabels:
+    cloud: Amazon
+    vendor: OpenShift
+  applicationManager:
+    enabled: true
+  policyController:
+    enabled: true
+  searchCollector:
+    enabled: true
+  certPolicyController:
+    enabled: true
+  iamPolicyController:
+    enabled: true
+
+---
+apiVersion: cluster.open-cluster-management.io/v1
+kind: ManagedCluster
+metadata:
+  name: ocp1
+  labels:
+    cloud: auto-detect
+    vendor: auto-detect
+spec:
+  hubAcceptsClient: true
