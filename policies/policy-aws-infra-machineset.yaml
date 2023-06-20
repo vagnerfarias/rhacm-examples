@@ -36,7 +36,7 @@ spec:
                 name: '{{ (lookup "config.openshift.io/v1" "Infrastructure" "" "cluster").status.infrastructureName }}-infra-{{ (lookup "config.openshift.io/v1" "Infrastructure" "" "cluster").status.platformStatus.aws.region }}a'
                 namespace: openshift-machine-api
               spec:
-                replicas: '{{ fromConfigMap  "rhacm-policies" "policy-infra-machineset-config" "replicas-a" }}'
+                replicas: '{{hub fromConfigMap  "rhacm-policies" "policy-infra-machineset-config" "replicas-a" hub}}'
                 selector:
                   matchLabels:
                     machine.openshift.io/cluster-api-cluster: '{{ (lookup "config.openshift.io/v1" "Infrastructure" "" "cluster").status.infrastructureName }}'
@@ -111,7 +111,7 @@ spec:
                 name: '{{ (lookup "config.openshift.io/v1" "Infrastructure" "" "cluster").status.infrastructureName }}-infra-{{ (lookup "config.openshift.io/v1" "Infrastructure" "" "cluster").status.platformStatus.aws.region }}a'
                 namespace: openshift-machine-api
               status:
-                readyReplicas: '{{ fromConfigMap  "rhacm-policies" "policy-infra-machineset-config" "replicas-a" }}'
+                readyReplicas: '{{hub fromConfigMap  "rhacm-policies" "policy-infra-machineset-config" "replicas-a" hub}}'
 ---
 apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
