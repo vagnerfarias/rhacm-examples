@@ -36,7 +36,7 @@ spec:
                 name: '{{ (lookup "config.openshift.io/v1" "Infrastructure" "" "cluster").status.infrastructureName }}-infra-{{ (lookup "config.openshift.io/v1" "Infrastructure" "" "cluster").status.platformStatus.aws.region }}a'
                 namespace: openshift-machine-api
               spec:
-                replicas: 2
+                replicas: '{{ fromConfigMap  "rhacm-policies" "policy-infra-machineset-config" "replicas-a" }}'
                 selector:
                   matchLabels:
                     machine.openshift.io/cluster-api-cluster: '{{ (lookup "config.openshift.io/v1" "Infrastructure" "" "cluster").status.infrastructureName }}'
@@ -90,8 +90,6 @@ spec:
                           value: owned
                         userDataSecret:
                           name: worker-user-data
-                    #versions:
-                    #  kubelet: ""
     - objectDefinition:
         apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
@@ -113,7 +111,7 @@ spec:
                 name: '{{ (lookup "config.openshift.io/v1" "Infrastructure" "" "cluster").status.infrastructureName }}-infra-{{ (lookup "config.openshift.io/v1" "Infrastructure" "" "cluster").status.platformStatus.aws.region }}a'
                 namespace: openshift-machine-api
               status:
-                readyReplicas: 2
+                readyReplicas: '{{ fromConfigMap  "rhacm-policies" "policy-infra-machineset-config" "replicas-a" }}'
 ---
 apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding

@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: policy-infra-machineset-config
+  namespace: rhacm-policies
+data:
+  replicas-a: '1'
+binaryData: {}
+immutable: false
+
