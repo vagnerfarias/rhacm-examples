@@ -1,0 +1,3 @@
+[submodule "acm-managed-cluster-gen"]
+	path = acm-managed-cluster-gen
+	url = https://github.com/vagnerfarias/acm-managed-cluster-gen.git
