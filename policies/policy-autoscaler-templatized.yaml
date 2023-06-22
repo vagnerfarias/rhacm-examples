@@ -162,8 +162,9 @@ spec:
       type: ManagedClusterConditionAvailable
   clusterSelector:
     matchExpressions:
-      - key: local-cluster
+      - key: name
         operator: In
         values:
-          - 'true'
+          - ocp1
+          - ocp2
 
