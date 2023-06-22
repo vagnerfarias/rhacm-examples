@@ -135,6 +135,7 @@ apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
 metadata:
   name: binding-policy-autoscaler-templatized-common
+  namespace: rhacm-policies
 placementRef:
   name: placement-policy-autoscaler-templatized-common
   kind: PlacementRule
@@ -154,6 +155,7 @@ apiVersion: apps.open-cluster-management.io/v1
 kind: PlacementRule
 metadata:
   name: placement-policy-autoscaler-templatized-common
+  name: rhacm-policies
 spec:
   clusterConditions:
     - status: 'True'
