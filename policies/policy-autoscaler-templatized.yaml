@@ -144,9 +144,6 @@ subjects:
   - name: policy-autoscaler-templatized
     kind: Policy
     apiGroup: policy.open-cluster-management.io
-  - name: policy-autoscaler-templatized-enabler
-    kind: Policy
-    apiGroup: policy.open-cluster-management.io
 ---
 apiVersion: apps.open-cluster-management.io/v1
 kind: PlacementRule
@@ -176,6 +173,9 @@ placementRef:
   apiGroup: apps.open-cluster-management.io
 subjects:
   - name: policy-autoscaler-templatized-config
+    kind: Policy
+    apiGroup: policy.open-cluster-management.io
+  - name: policy-autoscaler-templatized-enabler
     kind: Policy
     apiGroup: policy.open-cluster-management.io
 ---
