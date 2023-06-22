@@ -27,7 +27,7 @@ spec:
                 name: '{{ (lookup "config.openshift.io/v1" "Infrastructure" "" "cluster").status.infrastructureName }}-infra-{{ (lookup "config.openshift.io/v1" "Infrastructure" "" "cluster").status.platformStatus.aws.region }}a'
                 namespace: "openshift-machine-api"
               spec:
-                minReplicas: 1 
+                minReplicas: '{{hub fromConfigMap  "rhacm-policies" "policy-infra-machineset-config" "replicas-a" | toInt hub}}' 
                 maxReplicas: 4
                 scaleTargetRef: 
                   apiVersion: machine.openshift.io/v1beta1
