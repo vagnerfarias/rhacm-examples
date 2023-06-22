@@ -144,9 +144,6 @@ subjects:
   - name: policy-autoscaler-templatized
     kind: Policy
     apiGroup: policy.open-cluster-management.io
-  - name: policy-autoscaler-templatized-config
-    kind: Policy
-    apiGroup: policy.open-cluster-management.io
   - name: policy-autoscaler-templatized-enabler
     kind: Policy
     apiGroup: policy.open-cluster-management.io
@@ -167,4 +164,34 @@ spec:
         values:
           - ocp1
           - ocp2
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: binding-policy-autoscaler-templatized-hub
+  namespace: rhacm-policies
+placementRef:
+  name: placement-policy-autoscaler-templatized-hub
+  kind: PlacementRule
+  apiGroup: apps.open-cluster-management.io
+subjects:
+  - name: policy-autoscaler-templatized-config
+    kind: Policy
+    apiGroup: policy.open-cluster-management.io
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: PlacementRule
+metadata:
+  name: placement-policy-autoscaler-templatized-hub
+  namespace: rhacm-policies
+spec:
+  clusterConditions:
+    - status: 'True'
+      type: ManagedClusterConditionAvailable
+  clusterSelector:
+    matchExpressions:
+      - key: local-cluster
+        operator: In
+        values:
+          - 'true'
 
