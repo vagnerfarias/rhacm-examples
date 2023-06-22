@@ -15,7 +15,7 @@ spec:
         apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
         metadata:
-          name: machineset-infra1
+          name: machineset-infra1-autoscaler
         spec:
           severity: high
           object-templates:
