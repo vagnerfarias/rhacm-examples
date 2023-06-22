@@ -103,7 +103,7 @@ apiVersion: policy.open-cluster-management.io/v1
 kind: Policy
 metadata:
   name: policy-autoscaler-templatized-enabler
-  name: rhacm-policies
+  namespace: rhacm-policies
   annotations:
     policy.open-cluster-management.io/standards: NIST 800-53
     policy.open-cluster-management.io/categories: CM Configuration Management
@@ -155,7 +155,7 @@ apiVersion: apps.open-cluster-management.io/v1
 kind: PlacementRule
 metadata:
   name: placement-policy-autoscaler-templatized-common
-  name: rhacm-policies
+  namespace: rhacm-policies
 spec:
   clusterConditions:
     - status: 'True'
