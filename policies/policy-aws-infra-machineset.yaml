@@ -139,4 +139,5 @@ spec:
         operator: In
         values:
           - ocp1
+          - ocp2
 
