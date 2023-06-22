@@ -2,12 +2,14 @@ apiVersion: policy.open-cluster-management.io/v1
 kind: Policy
 metadata:
   name: policy-web-terminal-operator
+  namespace: rhacm-policies
   annotations:
     policy.open-cluster-management.io/categories: CM Configuration Management
     policy.open-cluster-management.io/controls: CM-2 Baseline Configuration
     policy.open-cluster-management.io/standards: NIST 800-53
 spec:
   disabled: false
+  remediationAction: enforce
   policy-templates:
     - objectDefinition:
         apiVersion: policy.open-cluster-management.io/v1
@@ -43,6 +45,7 @@ apiVersion: apps.open-cluster-management.io/v1
 kind: PlacementRule
 metadata:
   name: policy-web-terminal-operator-placement
+  namespace: rhacm-policies
 spec:
   clusterConditions:
     - status: "True"
@@ -58,6 +61,7 @@ apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
 metadata:
   name: policy-web-terminal-operator-placement
+  namespace: rhacm-policies
 placementRef:
   name: policy-web-terminal-operator-placement
   apiGroup: apps.open-cluster-management.io
