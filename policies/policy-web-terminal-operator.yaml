@@ -51,10 +51,10 @@ spec:
       type: ManagedClusterConditionAvailable
   clusterSelector:
     matchExpressions:
-      - key: local-cluster
+      - key: vendor
         operator: In
         values:
-          - "true"
+          - "OpenShift"
 ---
 apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
