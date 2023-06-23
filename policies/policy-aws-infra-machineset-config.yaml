@@ -4,7 +4,7 @@ metadata:
   name: policy-infra-machineset-config
   namespace: rhacm-policies
 data:
-  replicas-a: '3'
+  replicas-a: '2'
 binaryData: {}
 immutable: false
 
