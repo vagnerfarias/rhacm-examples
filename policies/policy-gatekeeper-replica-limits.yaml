@@ -73,8 +73,8 @@ spec:
         metadata:
           name: replica-limits
         spec:
-          match: 
-          enforcementAction: warn
+          #match: 
+          #enforcementAction: warn
           match:
             kinds:
               - apiGroups: ["apps"]
