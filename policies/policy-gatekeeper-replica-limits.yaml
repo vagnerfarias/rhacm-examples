@@ -73,8 +73,8 @@ spec:
         metadata:
           name: replica-limits
         spec:
-          #match: 
-          #enforcementAction: warn
+          match: 
+          enforcementAction: warn
           match:
             kinds:
               - apiGroups: ["apps"]
@@ -119,3 +119,4 @@ spec:
           - ocp1
           - ocp2
           - eks1
+          - local-cluster
