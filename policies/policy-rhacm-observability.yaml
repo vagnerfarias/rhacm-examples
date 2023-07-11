@@ -1,6 +1,16 @@
 # This policy requires that the s3 bucket is created beforehand.
 # aws credentials should be stored in secret aws-cloud-credentials-main
-# in rhacm-secrets namespace
+# in rhacm-secrets namespace, like in the example below:
+#   apiVersion: v1
+#   data:
+#     aws_access_key_id: <redacted>
+#     aws_secret_access_key: <redacted>
+#   kind: Secret
+#   metadata:
+#     name: aws-cloud-credentials-main
+#     namespace: rhacm-secrets
+#   type: Opaque
+
 apiVersion: policy.open-cluster-management.io/v1
 kind: Policy
 metadata:
