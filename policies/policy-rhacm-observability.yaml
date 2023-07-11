@@ -1,0 +1,101 @@
+# This policy requires that the s3 bucket is created beforehand.
+# aws credentials should be stored in secret aws-cloud-credentials-main
+# in rhacm-secrets namespace
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: policy-rhacm-observability
+  namespace: rhacm-policies
+  annotations:
+    policy.open-cluster-management.io/categories: CM Configuration Management
+    policy.open-cluster-management.io/controls: CM-2 Baseline Configuration
+    policy.open-cluster-management.io/standards: NIST 800-53
+spec:
+  disabled: false
+  remediationAction: enforce
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: policy-rhacm-observability
+        spec:
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: v1
+                kind: Namespace
+                metadata:
+                  name: open-cluster-management-observability
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: v1
+                kind: Secret
+                type: kubernetes.io/dockerconfigjson
+                metadata:
+                  name: pull-secret
+                  namespace: open-cluster-management-observability
+                data:
+                  .dockerconfigjson: '{{ fromSecret "openshift-config" "pull-secret" ".dockerconfigjson" }}'
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: v1
+                kind: Secret
+                metadata:
+                  name: thanos-object-storage
+                  namespace: open-cluster-management-observability
+                type: Opaque
+                stringData:
+                  thanos.yaml: |
+                    type: s3
+                    config:
+                      bucket: '{{ (lookup "config.openshift.io/v1" "Infrastructure" "" "cluster").status.infrastructureName }}-observability-s3'
+                      endpoint: 's3.{{ (lookup "config.openshift.io/v1" "Infrastructure" "" "cluster").status.platformStatus.aws.region }}.amazonaws.com'
+                      insecure: true
+                      access_key: '{{ fromSecret "rhacm-secrets" "aws-cloud-credentials-main" "aws_access_key_id" | base64dec }}'
+                      secret_key: '{{ fromSecret "rhacm-secrets" "aws-cloud-credentials-main" "aws_secret_access_key" | base64dec }}'
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: observability.open-cluster-management.io/v1beta2
+                kind: MultiClusterObservability
+                metadata:
+                  name: observability
+                spec:
+                  observabilityAddonSpec: {}
+                  storageConfig:
+                    metricObjectStorage:
+                      name: thanos-object-storage
+                      key: thanos.yaml
+          remediationAction: inform
+          severity: medium
+ 
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: PlacementRule
+metadata:
+  name: policy-rhacm-observability-placement
+  namespace: rhacm-policies
+spec:
+  clusterConditions:
+    - status: "True"
+      type: ManagedClusterConditionAvailable
+  clusterSelector:
+    matchExpressions:
+      - key: local-cluster
+        operator: In
+        values:
+          - 'true'
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: policy-rhacm-observability-placement
+  namespace: rhacm-policies
+placementRef:
+  name: policy-rhacm-observability-placement
+  apiGroup: apps.open-cluster-management.io
+  kind: PlacementRule
+subjects:
+  - name: policy-rhacm-observability
+    apiGroup: policy.open-cluster-management.io
+    kind: Policy
