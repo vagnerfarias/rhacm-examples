@@ -184,6 +184,7 @@ spec:
                       - openshift-route-controller-manager
                       - openshift-service-ca
                       - openshift-service-ca-operator
+                      - open-cluster-management-addon-observability
                       - openshift-terminal
                     processes: 
                       - '*'
