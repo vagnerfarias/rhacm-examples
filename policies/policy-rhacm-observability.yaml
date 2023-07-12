@@ -43,7 +43,7 @@ spec:
                 kind: Secret
                 type: kubernetes.io/dockerconfigjson
                 metadata:
-                  name: pull-secret
+                  name: multiclusterhub-operator-pull-secret
                   namespace: open-cluster-management-observability
                 data:
                   .dockerconfigjson: '{{ fromSecret "openshift-config" "pull-secret" ".dockerconfigjson" }}'
