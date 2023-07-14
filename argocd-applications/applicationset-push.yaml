@@ -1,15 +1,17 @@
 apiVersion: argoproj.io/v1alpha1
-kind: `ApplicationSet`
+kind: ApplicationSet
 metadata:
-  name: guestbook-allclusters-app-set
+  name: petclinic-app-set
   namespace: openshift-gitops
 spec:
   generators:
   - clusterDecisionResource:
-      configMapRef: ocm-placement-generator
+#      configMapRef: ocm-placement-generator
+      configMapRef: acm-placement
       labelSelector:
         matchLabels:
-          cluster.open-cluster-management.io/placement: aws-app-placement
+        #  cluster.open-cluster-management.io/placement: cluster1-placement
+          cluster.open-cluster-management.io/placement: all-openshift-clusters
       requeueAfterSeconds: 30
   template:
     metadata:
@@ -28,7 +30,7 @@ spec:
       project: default
       source:
         path: app 
-        repoURL: https://github.com/siamaksade/openshift-gitops-getting-started
+        repoURL: https://github.com/gstephan76/openshift-gitops-getting-started.git
         targetRevision: HEAD
       syncPolicy:
         automated: {}
