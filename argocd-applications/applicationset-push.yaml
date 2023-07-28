@@ -1,0 +1,38 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: petclinic-app-set
+  namespace: openshift-gitops
+spec:
+  generators:
+  - clusterDecisionResource:
+#      configMapRef: ocm-placement-generator
+      configMapRef: acm-placement
+      labelSelector:
+        matchLabels:
+        #  cluster.open-cluster-management.io/placement: cluster1-placement
+          cluster.open-cluster-management.io/placement: all-openshift-clusters
+      requeueAfterSeconds: 30
+  template:
+    metadata:
+      annotations:
+#        apps.open-cluster-management.io/ocm-managed-cluster: '{{name}}'
+        apps.open-cluster-management.io/ocm-managed-cluster-app-namespace: openshift-gitops
+#        argocd.argoproj.io/skip-reconcile: "true" 
+      labels:
+#        apps.open-cluster-management.io/pull-to-ocm-managed-cluster: "true" 
+      name: spring-petclinic-appset-{{name}}
+    spec:
+      destination:
+        namespace: spring-petclinic
+#        server: https://kubernetes.default.svc
+        server: "{{server}}"
+      project: default
+      source:
+        path: app 
+        repoURL: https://github.com/gstephan76/openshift-gitops-getting-started.git
+        targetRevision: HEAD
+      syncPolicy:
+        automated: {}
+        syncOptions:
+        - CreateNamespace=true
