@@ -67,7 +67,7 @@ spec:
                         deviceIndex: 0
                         iamInstanceProfile:
                           id: '{{ (lookup "config.openshift.io/v1" "Infrastructure" "" "cluster").status.infrastructureName }}-worker-profile'
-                        instanceType: m5.large
+                        instanceType: m5.xlarge
                         kind: AWSMachineProviderConfig
                         metadata:
                           creationTimestamp: null
