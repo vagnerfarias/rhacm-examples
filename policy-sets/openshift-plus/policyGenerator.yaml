@@ -1,0 +1,53 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PolicyGenerator
+metadata:
+  name: policy-managed-cluster
+placementBindingDefaults:
+  name: binding-policy-openshift-plus-hub
+policyDefaults:
+  categories:
+    - CM Configuration Management
+  controls: 
+    - CM-2 Baseline Configuration
+  namespace: rhacm-policies
+  policySets:
+    - openshift-plus-hub
+  remediationAction: enforce
+  severity: medium
+  standards:
+    - NIST SP 800-53
+policies:
+# ODF Policies - start
+- name: policy-odf
+  categories:
+    - SI System and Information Integrity
+  controls: 
+    - SI-7 Software Firmware and Information Integrity
+  manifests:
+    - path: input-odf/policy-odf.yaml
+- name: policy-odf-status
+  categories:
+    - SI System and Information Integrity
+  controls: 
+    - SI-7 Software Firmware and Information Integrity
+  dependencies:
+    - name: policy-odf
+  manifests:
+    - path: input-odf/policy-odf-status.yaml
+  remediationAction: inform
+# ODF Policies - end
+policySets:
+  - description: The OpenShift Platform Plus policy set applies several policies
+      that will install the OpenShift Platform Plus products using best practices
+      that allow them to work well together. This policy set is focused on
+      the components that install to the Advanced Cluster Management hub.
+    name: openshift-plus-hub
+    placement:
+      placementPath: input/hub-placement.yaml
+  - description: The OpenShift Platform Plus policy set applies several policies
+      that install the OpenShift Platform Plus products using best practices
+      that allow them to work well together. This policy set is focused on 
+      the components that install to every managed cluster.
+    name: openshift-plus-clusters
+    placement:
+      placementPath: input/clusters-placement.yaml
