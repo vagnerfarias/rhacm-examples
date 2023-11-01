@@ -27,13 +27,22 @@ policies:
     - path: input-odf/policy-odf-nodes.yaml
   policySets:
     - openshift-plus-clusters
+- name: policy-odf-nodes-status
+  categories:
+    - SI System and Information Integrity
+  controls:
+    - SI-7 Software Firmware and Information Integrity
+  manifests:
+    - path: input-odf/policy-odf-nodes-status.yaml
+  policySets:
+    - openshift-plus-clusters
 - name: policy-odf
   categories:
     - SI System and Information Integrity
   controls: 
     - SI-7 Software Firmware and Information Integrity
   dependencies:
-    - name: policy-odf-nodes
+    - name: policy-odf-nodes-status
   manifests:
     - path: input-odf/policy-odf.yaml
   policySets:
