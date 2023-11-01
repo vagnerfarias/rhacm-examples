@@ -34,6 +34,7 @@ policies:
     - SI-7 Software Firmware and Information Integrity
   manifests:
     - path: input-odf/policy-odf-nodes-status.yaml
+  remediationAction: inform
   policySets:
     - openshift-plus-clusters
 - name: policy-odf
