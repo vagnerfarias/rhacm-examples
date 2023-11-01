@@ -18,13 +18,26 @@ policyDefaults:
     - NIST SP 800-53
 policies:
 # ODF Policies - start
+- name: policy-odf-nodes
+  categories:
+    - SI System and Information Integrity
+  controls:
+    - SI-7 Software Firmware and Information Integrity
+  manifests:
+    - path: input-odf/policy-odf-nodes.yaml
+  policySets:
+    - openshift-plus-clusters
 - name: policy-odf
   categories:
     - SI System and Information Integrity
   controls: 
     - SI-7 Software Firmware and Information Integrity
+  dependencies:
+    - name: policy-odf-nodes
   manifests:
     - path: input-odf/policy-odf.yaml
+  policySets:
+    - openshift-plus-clusters
 - name: policy-odf-status
   categories:
     - SI System and Information Integrity
@@ -35,6 +48,8 @@ policies:
   manifests:
     - path: input-odf/policy-odf-status.yaml
   remediationAction: inform
+  policySets:
+    - openshift-plus-clusters
 # ODF Policies - end
 policySets:
   - description: The OpenShift Platform Plus policy set applies several policies
