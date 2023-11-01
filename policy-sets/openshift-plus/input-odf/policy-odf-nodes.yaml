@@ -3,7 +3,7 @@ kind: MachineSet
 metadata:
   labels:
     machine.openshift.io/cluster-api-cluster: '{{ (lookup "config.openshift.io/v1" "Infrastructure" "" "cluster").status.infrastructureName }}'
-  name: openshift-storage-machines
+  name: '{{ (lookup "config.openshift.io/v1" "Infrastructure" "" "cluster").status.infrastructureName }}-storage-{{ (lookup "config.openshift.io/v1" "Infrastructure" "" "cluster").status.platformStatus.aws.region }}a'
   namespace: openshift-machine-api
 spec:
   replicas: 1
@@ -70,7 +70,7 @@ kind: MachineSet
 metadata:
   labels:
     machine.openshift.io/cluster-api-cluster: '{{ (lookup "config.openshift.io/v1" "Infrastructure" "" "cluster").status.infrastructureName }}'
-  name: openshift-storage-machines
+  name: '{{ (lookup "config.openshift.io/v1" "Infrastructure" "" "cluster").status.infrastructureName }}-storage-{{ (lookup "config.openshift.io/v1" "Infrastructure" "" "cluster").status.platformStatus.aws.region }}b'
   namespace: openshift-machine-api
 spec:
   replicas: 1 
@@ -137,7 +137,7 @@ kind: MachineSet
 metadata:
   labels:
     machine.openshift.io/cluster-api-cluster: '{{ (lookup "config.openshift.io/v1" "Infrastructure" "" "cluster").status.infrastructureName }}'
-  name: openshift-storage-machines
+  name: '{{ (lookup "config.openshift.io/v1" "Infrastructure" "" "cluster").status.infrastructureName }}-storage-{{ (lookup "config.openshift.io/v1" "Infrastructure" "" "cluster").status.platformStatus.aws.region }}c'
   namespace: openshift-machine-api
 spec:
   replicas: 1 
