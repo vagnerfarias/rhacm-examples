@@ -28,7 +28,7 @@ spec:
       providerSpec:
         value:
           ami:
-            id: '{{hub fromConfigMap "policy-storage-machineset-config" (lookup "config.openshift.io/v1" "Infrastructure" "" "cluster").status.platformStatus.aws.region hub}}'
+            id: '{{hub fromConfigMap "policy-storage-machineset-config" {{ (lookup "config.openshift.io/v1" "Infrastructure" "" "cluster").status.platformStatus.aws.region }} hub}}'
           apiVersion: awsproviderconfig.openshift.io/v1beta1
           blockDevices:
           - ebs:
