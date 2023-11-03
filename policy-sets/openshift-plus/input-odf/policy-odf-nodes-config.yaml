@@ -4,6 +4,7 @@ metadata:
   name: policy-storage-machineset-config
   namespace: rhacm-policies
 data:
-  region-us-east-1: "ami-0b56cb92505dea7ed"
+  us-east-1: "ami-0b56cb92505dea7ed"
+  us-east-2: "ami-0ed3f273b2e74f814"
 binaryData: {}
 immutable: false
