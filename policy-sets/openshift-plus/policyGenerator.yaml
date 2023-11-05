@@ -27,7 +27,6 @@ policies:
     - path: input-odf/policy-odf-nodes.yaml
   policySets:
     - openshift-plus-clusters
-    - openshift-plus-hub
 - name: policy-odf-nodes-status
   categories:
     - SI System and Information Integrity
@@ -38,7 +37,6 @@ policies:
   remediationAction: inform
   policySets:
     - openshift-plus-clusters
-    - openshift-plus-hub
 - name: policy-odf
   categories:
     - SI System and Information Integrity
@@ -50,7 +48,6 @@ policies:
     - path: input-odf/policy-odf.yaml
   policySets:
     - openshift-plus-clusters
-    - openshift-plus-hub
 - name: policy-odf-status
   categories:
     - SI System and Information Integrity
@@ -63,7 +60,6 @@ policies:
   remediationAction: inform
   policySets:
     - openshift-plus-clusters
-    - openshift-plus-hub
 # ODF Policies - end
 policySets:
   - description: The OpenShift Platform Plus policy set applies several policies
