@@ -96,7 +96,7 @@ spec:
       providerSpec:
         value:
           ami:
-            id: ami-0b56cb92505dea7ed
+            id: '{{ (index (lookup "machine.openshift.io/v1beta1" "MachineSet" "openshift-machine-api" "").items 0).spec.template.spec.providerSpec.value.ami.id }}'
           apiVersion: awsproviderconfig.openshift.io/v1beta1
           blockDevices:
           - ebs:
@@ -164,7 +164,7 @@ spec:
       providerSpec:
         value:
           ami:
-            id: ami-0b56cb92505dea7ed
+            id: '{{ (index (lookup "machine.openshift.io/v1beta1" "MachineSet" "openshift-machine-api" "").items 0).spec.template.spec.providerSpec.value.ami.id }}'
           apiVersion: awsproviderconfig.openshift.io/v1beta1
           blockDevices:
           - ebs:
