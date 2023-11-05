@@ -1,3 +1,4 @@
+{{- $worker_ms := (index (lookup "machine.openshift.io/v1beta1" "MachineSet" "openshift-machine-api" "").items 0) }}
 apiVersion: machine.openshift.io/v1beta1
 kind: MachineSet
 metadata:
@@ -28,7 +29,7 @@ spec:
       providerSpec:
         value:
           ami:
-            id: '{{hub fromConfigMap "policy-storage-machineset-config" {{ (lookup "config.openshift.io/v1" "Infrastructure" "" "cluster").status.platformStatus.aws.region }} hub}}'
+            id: '{{ $worker_ms.spec.template.spec.providerSpec.value.ami.id }}'
           apiVersion: awsproviderconfig.openshift.io/v1beta1
           blockDevices:
           - ebs:
