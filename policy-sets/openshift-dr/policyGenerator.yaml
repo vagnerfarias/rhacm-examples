@@ -25,7 +25,7 @@ policies:
   manifests:
     - path: input-submariner/policy-broker.yaml
   policySets:
-    - openshift-dr-clusters
+    - openshift-dr-hub
   remediationAction: inform
 
 - name: policy-submarinerconfig
