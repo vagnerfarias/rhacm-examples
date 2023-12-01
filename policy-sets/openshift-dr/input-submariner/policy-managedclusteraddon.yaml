@@ -2,6 +2,6 @@ apiVersion: addon.open-cluster-management.io/v1alpha1
 kind: ManagedClusterAddOn
 metadata:
      name: submariner
-     namespace: '{{ .ManagedClusterName }}'
+     namespace: '{{hub .ManagedClusterName hub}}'
 spec:
      installNamespace: submariner-operator
