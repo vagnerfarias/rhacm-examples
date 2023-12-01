@@ -1,3 +1,8 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: openshift-dr-broker
+---
 apiVersion: submariner.io/v1alpha1
 kind: Broker
 metadata:
