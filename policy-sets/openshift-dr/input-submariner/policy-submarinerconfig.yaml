@@ -3,4 +3,4 @@ kind: SubmarinerConfig
 metadata:
     name: submariner
     namespace: '{{ .ManagedClusterName }}'
-spec:{}
+spec: {}
