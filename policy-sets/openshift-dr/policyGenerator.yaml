@@ -26,7 +26,7 @@ policies:
     - path: input-submariner/policy-broker.yaml
   policySets:
     - openshift-dr-hub
-  remediationAction: inform
+  remediationAction: enforce
 
 - name: policy-submarinerconfig
   categories:
