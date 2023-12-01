@@ -37,7 +37,7 @@ policies:
     - path: input-submariner/policy-submarinerconfig.yaml
   policySets:
     - openshift-dr-clusters
-  remediationAction: inform
+  remediationAction: enforce
 - name: policy-managedclusteraddon
   categories:
     - SI System and Information Integrity
@@ -45,7 +45,7 @@ policies:
     - SI-7 Software Firmware and Information Integrity
   manifests:
     - path: input-submariner/policy-managedclusteraddon.yaml
-  remediationAction: inform
+  remediationAction: enforce
   policySets:
     - openshift-dr-clusters
 policySets:
