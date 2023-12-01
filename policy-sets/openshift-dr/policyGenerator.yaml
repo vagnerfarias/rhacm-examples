@@ -1,0 +1,54 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PolicyGenerator
+metadata:
+  name: policy-dr-cluster
+placementBindingDefaults:
+  name: binding-policy-openshift-dr-hub
+policyDefaults:
+  categories:
+    - CM Configuration Management
+  controls: 
+    - CM-2 Baseline Configuration
+  namespace: rhacm-policies
+  policySets:
+    - openshift-dr-hub
+  remediationAction: enforce
+  severity: medium
+  standards:
+    - NIST SP 800-53
+policies:
+- name: policy-broker
+  path: input-submariner/policy-broker.yaml 
+
+- name: policy-submarinerconfig
+  categories:
+    - SI System and Information Integrity
+  controls:
+    - SI-7 Software Firmware and Information Integrity
+  manifests:
+    - path: input-submariner/policy-submarinerconfig.yaml
+  policySets:
+    - openshift-dr-clusters
+- name: policy-submarineraddon
+  categories:
+    - SI System and Information Integrity
+  controls:
+    - SI-7 Software Firmware and Information Integrity
+  manifests:
+    - path: input-submariner/policy-submarineraddon.yaml
+  remediationAction: enforce
+  policySets:
+    - openshift-dr-clusters
+policySets:
+  - description: The OpenShift DR policy set applies policies that will configure
+      Submariner and ODF Regional DR. This policy set is focused on
+      the components that install to the Advanced Cluster Management hub.
+    name: openshift-plus-hub
+    placement:
+      placementPath: input/hub-placement.yaml
+  - description: The OpenShift DR policy set applies policies that will configure
+      Submariner and ODF Regional DR. This policy set is focused on
+      the components that install to the clusters participating in the DR configuration
+    name: openshift-dr-clusters
+    placement:
+      placementPath: input/clusters-placement.yaml

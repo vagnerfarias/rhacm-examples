@@ -1,0 +1,4 @@
+= Assumptions
+* A ManagedClusterSet named 'openshift-dr' already exists.
+* The clusters named 'ocp1' and 'ocp2' already exists and are assigned to 'openshift-dr' Clusterset
+
