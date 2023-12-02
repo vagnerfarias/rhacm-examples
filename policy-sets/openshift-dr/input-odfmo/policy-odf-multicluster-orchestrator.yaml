@@ -12,3 +12,23 @@ spec:
   source: redhat-operators
   sourceNamespace: openshift-marketplace
   #startingCSV: odf-multicluster-orchestrator.v4.13.4-rhodf
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: ConfigurationPolicy
+metadata:
+  name: enable-odfmo-plugin
+spec:
+  remediationAction: enforce
+  severity: low
+  object-templates:
+    - complianceType: musthave
+      objectDefinition:
+        kind: Console
+        apiVersion: operator.openshift.io/v1
+        metadata:
+          name: cluster
+        spec:
+          plugins: [
+            "odf-multicluster-console"
+          ] 
+
