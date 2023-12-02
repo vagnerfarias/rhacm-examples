@@ -45,7 +45,7 @@ policies:
   controls:
     - SI-7 Software Firmware and Information Integrity
   manifests:
-    - path: input-submariner/policy-odf-multicluster-orchestrator.yaml
+    - path: input-odfmo/policy-odf-multicluster-orchestrator.yaml
   remediationAction: enforce
   policySets:
     - openshift-dr-hub
