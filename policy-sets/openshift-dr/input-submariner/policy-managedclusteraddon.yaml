@@ -26,7 +26,7 @@ spec:
           namespace: '{{ $cluster.metadata.name }}'
         spec: 
           credentialsSecret:
-            name: '{{ $cluster.metadata.name }}'-aws-creds
+            name: '{{ $cluster.metadata.name }}-aws-creds'
           gatewayConfig:
             gateways: 1
     {{- end }}
