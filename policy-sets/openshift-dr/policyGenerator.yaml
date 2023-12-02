@@ -50,7 +50,7 @@ policies:
   policySets:
     - openshift-dr-hub
   dependencies:
-  - name: policy-maangedclusteraddon
+  - name: policy-managedclusteraddon
 
 policySets:
   - description: The OpenShift DR policy set applies policies that will configure
