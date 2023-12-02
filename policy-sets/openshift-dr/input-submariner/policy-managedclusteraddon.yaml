@@ -6,7 +6,6 @@ spec:
   remediationAction: enforce
   severity: low
   object-templates-raw: |
-    {{-  /* List clusters from cluster set */ -}}
     {{- $clusters := (lookup "cluster.open-cluster-management.io/v1" "ManagedCluster" "" "" "cluster.open-cluster-management.io/clusterset=openshift-dr").items }}
     {{- range $cluster := $clusters }}
     - complianceType: musthave
