@@ -6,7 +6,7 @@ spec:
   remediationAction: enforce
   severity: low
   object-templates-raw: |
-    {{- $clusters := list (lookup "cluster.open-cluster-management.io/v1" "ManagedCluster" "" "" "cluster.open-cluster-management.io/clusterset=openshift-dr").items }}
+    {{- $clusters := (lookup "cluster.open-cluster-management.io/v1" "ManagedCluster" "" "" "cluster.open-cluster-management.io/clusterset=openshift-dr").items }}
     {{- range $cluster := $clusters }}
     - complianceType: musthave
       objectDefinition:
@@ -14,7 +14,7 @@ spec:
         kind: ManagedClusterAddOn
         metadata:
           name: submariner
-          namespace: '{{ $cluster }}'
+          namespace: '{{ $cluster.metadata.name }}'
         spec:
           installNamespace: submariner-operator
     {{- end }}
