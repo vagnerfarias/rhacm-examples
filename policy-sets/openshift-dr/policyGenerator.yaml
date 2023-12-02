@@ -28,16 +28,6 @@ policies:
     - openshift-dr-hub
   remediationAction: enforce
 
-- name: policy-submarinerconfig
-  categories:
-    - SI System and Information Integrity
-  controls:
-    - SI-7 Software Firmware and Information Integrity
-  manifests:
-    - path: input-submariner/policy-submarinerconfig.yaml
-  policySets:
-    - openshift-dr-hub
-  remediationAction: enforce
 - name: policy-managedclusteraddon
   categories:
     - SI System and Information Integrity
@@ -48,6 +38,20 @@ policies:
   remediationAction: enforce
   policySets:
     - openshift-dr-hub
+
+- name: policy-odfmo
+  categories:
+    - SI System and Information Integrity
+  controls:
+    - SI-7 Software Firmware and Information Integrity
+  manifests:
+    - path: input-submariner/policy-odf-multicluster-orchestrator.yaml
+  remediationAction: enforce
+  policySets:
+    - openshift-dr-hub
+  dependencies:
+  - name: policy-maangedclusteraddon
+
 policySets:
   - description: The OpenShift DR policy set applies policies that will configure
       Submariner and ODF Regional DR. This policy set is focused on
