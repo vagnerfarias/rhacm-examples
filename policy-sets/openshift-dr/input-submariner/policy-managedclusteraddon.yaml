@@ -1,7 +1,21 @@
-apiVersion: addon.open-cluster-management.io/v1alpha1
-kind: ManagedClusterAddOn
+apiVersion: policy.open-cluster-management.io/v1
+kind: ConfigurationPolicy
 metadata:
-     name: submariner
-     namespace: '{{hub .ManagedClusterName hub}}'
+  name: install-submariner-addon
 spec:
-     installNamespace: submariner-operator
+  remediationAction: enforce
+  severity: low
+  object-templates-raw: |
+    {{-  /* List clusters from cluster set */ -}}
+    {{- $clusters := (lookup "cluster.open-cluster-management.io/v1" "ManagedCluster" "" "" "cluster.open-cluster-management.io/clusterset=openshift-dr").items }}
+    {{- range $cluster := $clusters }}
+    - complianceType: musthave
+      objectDefinition:
+        apiVersion: addon.open-cluster-management.io/v1alpha1
+        kind: ManagedClusterAddOn
+        metadata:
+          name: submariner
+          namespace: '{{ $cluster }}'
+        spec:
+          installNamespace: submariner-operator
+    {{- end }}
