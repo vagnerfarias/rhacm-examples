@@ -36,7 +36,7 @@ policies:
   manifests:
     - path: input-submariner/policy-submarinerconfig.yaml
   policySets:
-    - openshift-dr-clusters
+    - openshift-dr-hub
   remediationAction: enforce
 - name: policy-managedclusteraddon
   categories:
