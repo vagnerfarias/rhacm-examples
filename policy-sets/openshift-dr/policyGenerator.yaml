@@ -47,7 +47,7 @@ policies:
     - path: input-submariner/policy-managedclusteraddon.yaml
   remediationAction: enforce
   policySets:
-    - openshift-dr-clusters
+    - openshift-dr-hub
 policySets:
   - description: The OpenShift DR policy set applies policies that will configure
       Submariner and ODF Regional DR. This policy set is focused on
