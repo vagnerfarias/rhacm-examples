@@ -6,7 +6,7 @@ spec:
   remediationAction: enforce
   severity: low
   object-templates-raw: |
-    {{- $clusters := (lookup "cluster.open-cluster-management.io/v1" "ManagedCluster" "" "" "cluster.open-cluster-management.io/clusterset=openshift-dr").items }}
+    {{- $clusters := (lookup "cluster.open-cluster-management.io/v1" "ManagedCluster" "" "" "cluster.open-cluster-management.io/clusterset=openshift-dr") }}
     {{- $primary := ($clusters).items 0  }}
     - complianceType: musthave
       objectDefinition:
