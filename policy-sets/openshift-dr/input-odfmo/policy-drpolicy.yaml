@@ -7,12 +7,13 @@ spec:
   severity: low
   object-templates-raw: |
     {{- $clusters := (lookup "cluster.open-cluster-management.io/v1" "ManagedCluster" "" "" "cluster.open-cluster-management.io/clusterset=openshift-dr").items }}
+    {{- $primary := (index ($clusters).items 0)  }}
     - complianceType: musthave
       objectDefinition:
         apiVersion: ramendr.openshift.io/v1alpha1
         kind: DRPolicy
         metadata:
-          name: '{{ index (($clusters).items 0).metadata.name  }}-5m'
+          name: '{{ $primary.metadata.name  }}-5m'
         spec:
           drClusters:
           - ocp1
