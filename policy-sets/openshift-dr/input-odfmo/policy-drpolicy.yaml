@@ -7,7 +7,7 @@ spec:
   severity: low
   object-templates-raw: |
     {{- $clusters := (lookup "cluster.open-cluster-management.io/v1" "ManagedCluster" "" "" "cluster.open-cluster-management.io/clusterset=openshift-dr") }}
-    {{- $primary := ($clusters).items 0  }}
+    {{- $primary := (index ($clusters).items 0)  }}
     - complianceType: musthave
       objectDefinition:
         apiVersion: ramendr.openshift.io/v1alpha1
