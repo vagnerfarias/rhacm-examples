@@ -1,7 +1,7 @@
 apiVersion: policy.open-cluster-management.io/v1
 kind: ConfigurationPolicy
 metadata:
-  name: install-submariner-addon-status
+  name: install-multicluster-orchestrator-operator-status
 spec:
   remediationAction: inform
   severity: low
