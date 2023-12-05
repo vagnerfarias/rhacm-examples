@@ -64,6 +64,20 @@ policies:
   dependencies:
   - name: policy-managedclusteraddon
 
+- name: policy-odfmo-status
+  categories:
+    - SI System and Information Integrity
+  controls:
+    - SI-7 Software Firmware and Information Integrity
+  manifests:
+    - path: input-odfmo/policy-odf-multicluster-orchestrator-status.yaml
+  remediationAction: enforce
+  policySets:
+    - openshift-dr-hub
+  dependencies:
+  - name: policy-odfmo
+
+
 - name: policy-drpolicy
   categories:
     - SI System and Information Integrity
