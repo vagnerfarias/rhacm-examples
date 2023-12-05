@@ -1,0 +1,22 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: ConfigurationPolicy
+metadata:
+  name: install-submariner-addon
+spec:
+  remediationAction: inform
+  severity: low
+  object-templates-raw: |
+    {{- $clusters := (lookup "cluster.open-cluster-management.io/v1" "ManagedCluster" "" "" "cluster.open-cluster-management.io/clusterset=openshift-dr").items }}
+    {{- range $cluster := $clusters }}
+    - complianceType: musthave
+      objectDefinition:
+        apiVersion: submarineraddon.open-cluster-management.io/v1alpha1
+        kind: SubmarinerConfig
+        metadata:
+          name: submariner
+          namespace: '{{ $cluster.metadata.name }}'
+        status:
+          conditions:
+          - type: SubmarinerGatewaysLabeled
+            status: "True"
+    {{- end }}
