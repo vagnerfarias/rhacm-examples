@@ -39,6 +39,18 @@ policies:
   policySets:
     - openshift-dr-hub
 
+- name: policy-managedclusteraddon-status
+  categories:
+    - SI System and Information Integrity
+  controls:
+    - SI-7 Software Firmware and Information Integrity
+  manifests:
+    - path: input-submariner/policy-managedclusteraddon-status.yaml
+  remediationAction: enforce
+  policySets:
+    - openshift-dr-hub
+
+
 - name: policy-odfmo
   categories:
     - SI System and Information Integrity
