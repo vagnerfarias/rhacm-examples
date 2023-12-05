@@ -1,7 +1,7 @@
 apiVersion: policy.open-cluster-management.io/v1
 kind: ConfigurationPolicy
 metadata:
-  name: install-submariner-addon
+  name: install-submariner-addon-status
 spec:
   remediationAction: inform
   severity: low
