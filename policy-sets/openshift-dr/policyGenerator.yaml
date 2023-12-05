@@ -71,7 +71,7 @@ policies:
     - SI-7 Software Firmware and Information Integrity
   manifests:
     - path: input-odfmo/policy-odf-multicluster-orchestrator-status.yaml
-  remediationAction: enforce
+  remediationAction: inform
   policySets:
     - openshift-dr-hub
   dependencies:
