@@ -1,7 +1,17 @@
-apiVersion: operators.coreos.com/v1alpha1
-kind: Subscription
+apiVersion: policy.open-cluster-management.io/v1
+kind: ConfigurationPolicy
 metadata:
-  name: odf-multicluster-orchestrator
-  namespace: openshift-operators
-status:
-  state: AtLeastKnown
+  name: install-submariner-addon-status
+spec:
+  remediationAction: inform
+  severity: low
+  object-templates: 
+    - complianceType: musthave
+      objectDefinition:
+        apiVersion: operators.coreos.com/v1alpha1
+        kind: Subscription
+        metadata:
+          name: odf-multicluster-orchestrator
+          namespace: openshift-operators
+        status:
+          state: AtLeastKnown
