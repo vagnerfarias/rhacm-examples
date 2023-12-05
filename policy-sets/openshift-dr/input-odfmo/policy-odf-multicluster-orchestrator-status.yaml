@@ -14,4 +14,4 @@ spec:
           name: odf-multicluster-orchestrator
           namespace: openshift-operators
         status:
-          state: AtLeastKnown
+          state: AtLatestKnown
