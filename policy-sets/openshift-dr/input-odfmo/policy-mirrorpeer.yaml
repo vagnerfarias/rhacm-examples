@@ -1,0 +1,35 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: ConfigurationPolicy
+metadata:
+  name: configure-mirrorpeer
+spec:
+  remediationAction: enforce
+  severity: low
+  object-templates-raw: |
+    {{- $clusters := (lookup "cluster.open-cluster-management.io/v1" "ManagedCluster" "" "" "cluster.open-cluster-management.io/clusterset=openshift-dr") }}
+    {{- $primary := (index ($clusters).items 0)  }}
+    {{- $secondary := (index ($clusters).items 1)  }}
+    {{- $interval := "5m" }}
+ 
+    - complianceType: musthave
+      objectDefinition:
+        apiVersion: multicluster.odf.openshift.io/v1alpha1
+        kind: MirrorPeer
+        metadata:
+          name: 'mirrorpeer-{{ $primary.metadata.name }}-{{ $secondary.metadata.name }}'
+          generation: 1
+          labels:
+            cluster.open-cluster-management.io/backup: resource
+        spec:
+          items:
+          - clusterName: '{{ $primary.metadata.name }}'
+            storageClusterRef:
+              name: ocs-storagecluster
+              namespace: openshift-storage
+          - clusterName: '{{ $secondary.metadata.name }}'
+            storageClusterRef:
+              name: ocs-storagecluster
+              namespace: openshift-storage
+          manageS3: true
+          overlappingCIDR: false
+          type: async

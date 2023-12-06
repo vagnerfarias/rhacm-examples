@@ -10,6 +10,7 @@ spec:
     {{- $primary := (index ($clusters).items 0)  }}
     {{- $secondary := (index ($clusters).items 1)  }}
     {{- $interval := "5m" }}
+ 
     - complianceType: musthave
       objectDefinition:
         apiVersion: ramendr.openshift.io/v1alpha1

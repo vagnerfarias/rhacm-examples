@@ -89,7 +89,20 @@ policies:
   policySets:
     - openshift-dr-hub
   dependencies:
-  - name: policy-odfmo
+  - name: policy-odfmo-status
+
+- name: policy-mirrorpeer
+  categories:
+    - SI System and Information Integrity
+  controls:
+    - SI-7 Software Firmware and Information Integrity
+  manifests:
+    - path: input-odfmo/policy-mirrorpeer.yaml
+  remediationAction: enforce
+  policySets:
+    - openshift-dr-hub
+  dependencies:
+  - name: policy-odfmo-status
 
 policySets:
   - description: The OpenShift DR policy set applies policies that will configure
