@@ -17,6 +17,18 @@ policyDefaults:
   standards:
     - NIST SP 800-53
 policies:
+
+- name: policy-odf-globalnet
+  categories:
+    - SI System and Information Integrity
+  controls:
+    - SI-7 Software Firmware and Information Integrity
+  manifests:
+    - path: input-odfmo/policy-odf-globalnet.yaml
+  policySets:
+    - openshift-dr-clusters
+  remediationAction: enforce
+
 - name: policy-broker
   categories:
     - SI System and Information Integrity
