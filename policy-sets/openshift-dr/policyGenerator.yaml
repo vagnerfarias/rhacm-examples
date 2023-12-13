@@ -18,16 +18,17 @@ policyDefaults:
     - NIST SP 800-53
 policies:
 
-- name: policy-odf-globalnet
+- name: policy-ingress-cert
   categories:
     - SI System and Information Integrity
   controls:
     - SI-7 Software Firmware and Information Integrity
   manifests:
-    - path: input-odfmo/policy-odf-globalnet.yaml
+    - path: input-ingress-cert/policy-ingress-certificate.yaml
   policySets:
     - openshift-dr-clusters
   remediationAction: enforce
+
 
 - name: policy-broker
   categories:
@@ -40,6 +41,7 @@ policies:
     - openshift-dr-hub
   remediationAction: enforce
 
+
 - name: policy-managedclusteraddon
   categories:
     - SI System and Information Integrity
@@ -47,7 +49,7 @@ policies:
     - SI-7 Software Firmware and Information Integrity
   manifests:
     - path: input-submariner/policy-managedclusteraddon.yaml
-  remediationAction: enforce
+  remediationAction: inform
   policySets:
     - openshift-dr-hub
 
@@ -58,10 +60,23 @@ policies:
     - SI-7 Software Firmware and Information Integrity
   manifests:
     - path: input-submariner/policy-managedclusteraddon-status.yaml
-  remediationAction: enforce
+  remediationAction: inform
   policySets:
-    - openshift-dr-hub
+    - openshift-dr-clusters
 
+- name: policy-odf-globalnet
+  categories:
+    - SI System and Information Integrity
+  controls:
+    - SI-7 Software Firmware and Information Integrity
+  manifests:
+    - path: input-odfmo/policy-odf-globalnet.yaml
+  policySets:
+    - openshift-dr-clusters
+  remediationAction: enforce
+  dependencies:
+  - name: policy-managedclusteraddon-status
+  - name: policy-ingress-cert
 
 - name: policy-odfmo
   categories:
@@ -73,7 +88,7 @@ policies:
   remediationAction: enforce
   policySets:
     - openshift-dr-hub
-  dependencies:
+  dependencies: 
   - name: policy-managedclusteraddon
 
 - name: policy-odfmo-status
@@ -115,6 +130,20 @@ policies:
     - openshift-dr-hub
   dependencies:
   - name: policy-odfmo-status
+
+- name: policy-drpolicy-status
+  categories:
+    - SI System and Information Integrity
+  controls:
+    - SI-7 Software Firmware and Information Integrity
+  manifests:
+    - path: input-odfmo/policy-drpolicy-status.yaml
+  remediationAction: inform
+  policySets:
+    - openshift-dr-hub
+  dependencies:
+  - name: policy-drpolicy
+
 
 policySets:
   - description: The OpenShift DR policy set applies policies that will configure

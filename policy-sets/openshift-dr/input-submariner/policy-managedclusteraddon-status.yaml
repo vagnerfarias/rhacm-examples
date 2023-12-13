@@ -6,17 +6,15 @@ spec:
   remediationAction: inform
   severity: low
   object-templates-raw: |
-    {{- $clusters := (lookup "cluster.open-cluster-management.io/v1" "ManagedCluster" "" "" "cluster.open-cluster-management.io/clusterset=openshift-dr").items }}
-    {{- range $cluster := $clusters }}
     - complianceType: musthave
       objectDefinition:
-        apiVersion: submarineraddon.open-cluster-management.io/v1alpha1
-        kind: SubmarinerConfig
+        apiVersion: submariner.io/v1alpha1
+        kind: Submariner
         metadata:
           name: submariner
-          namespace: '{{ $cluster.metadata.name }}'
+          namespace: submariner-operator
         status:
-          conditions:
-          - type: SubmarinerGatewaysLabeled
-            status: "True"
-    {{- end }}
+          gateways:
+          - connections:
+            - endpoint:
+              status: connected

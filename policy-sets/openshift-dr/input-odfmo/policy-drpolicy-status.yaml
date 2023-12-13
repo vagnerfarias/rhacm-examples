@@ -1,0 +1,23 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: ConfigurationPolicy
+metadata:
+  name: configure-drpolicy-status
+spec:
+  remediationAction: inform
+  severity: low
+  object-templates-raw: |
+    {{- $clusters := (lookup "cluster.open-cluster-management.io/v1" "ManagedCluster" "" "" "cluster.open-cluster-management.io/clusterset=openshift-dr") }}
+    {{- $primary := (index ($clusters).items 0)  }}
+    {{- $secondary := (index ($clusters).items 1)  }}
+    {{- $interval := "5m" }}
+ 
+    - complianceType: musthave
+      objectDefinition:
+        apiVersion: ramendr.openshift.io/v1alpha1
+        kind: DRPolicy
+        metadata:
+          name: '{{ $primary.metadata.name }}-{{ $secondary.metadata.name }}-{{ $interval }}'
+        status:
+          conditions:
+            - type: Validated
+              status: "True"
